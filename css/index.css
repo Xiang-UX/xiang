@@ -5,14 +5,22 @@
     box-sizing: border-box;
 }
 
+body {
+    font-family: serif;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0.1em;
+}
+
 .body {
-    background: #e2c9c9;
+   background-image: url(../img/bg.jpg);
     width: 980px;
     height: 700px;
     margin: 20px auto;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 1, 0, 0.6);
     position: relative;
+    
     /* display: flex/; */
 }
 
@@ -28,7 +36,7 @@
     background: rgba(10, 97, 80, 0.5);
     width: 90%;
     height: 70px;
-    box-shadow: 0 0 10px rgba(0, 1, 0, 0.6);
+    box-shadow: 0 0 10px rgba(0, 1, 0, 0.2);
     margin-top: 5px;
     border-radius: 10px;
     display: flex;
@@ -45,7 +53,7 @@
 }
 /* 侧边栏 2*/
 .cebian {
-    background: rgba(182, 89, 89, 0.6);
+    background: rgba(39, 217, 185, 0.2);
     position: fixed;
     width: 150px;
     height: 500px;
@@ -57,19 +65,7 @@
     align-items: center;
     /* 透明1-0 */
 }
-/* 全局样式 */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
-body {
-    font-family: serif;
-    font-size: 16px;
-    line-height: 1.5;
-    letter-spacing: 0.1em;
-}
 
 /* 导航菜单样式 */
 .menu {
@@ -92,7 +88,7 @@ body {
     display: inline-block;
     padding: 8px 16px;
     font-size: 14px;
-    color: #333;
+    color: #180101;
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -110,7 +106,7 @@ body {
 
 /* 主体 3*/
 .zhuti {
-    background: rgba(238, 13, 215, 0.6);
+    background: rgba(13, 133, 238, 0.3);
     /* 设置宽高 */
     width: 80%;
     height: 500px;
@@ -124,13 +120,62 @@ body {
     font-size: 24px;
     color: #fff;
 }
+.card {
+    width: 390px;
+    height: 500px;
+    padding: 5px;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#ca1eb3), color-stop(#FD2E24), color-stop(70%, #FFD701));
+    background-image: linear-gradient(#ca1eb3, #FD2E24, #FFD701 70%);
+}
+
+.card__content {
+    background-color: #212121cf;
+    -webkit-backdrop-filter: blur(50px);
+    backdrop-filter: blur(50px);
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+}
+
+.card-details {
+    height: 100%;
+    gap: .5em;
+    display: grid;
+    place-content: center;
+}
+
+.text-body {
+    margin-top: -35px;
+    color: #ff8d79;
+    text-align: center;
+}
+
+.text-title {
+    margin-top: -125px;
+    color: #ff4d7d;
+    font-size: 1.75em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.sunsetsvg {
+    width: 313px;
+    margin-left: -51.9px;
+    margin-top: -165px;
+    fill: black;
+}
+
+#sun {
+    fill: url(#MyGradient);
+}
+
+
 
 /* 底部 4*/
 .dibu {
-    background: rgba(0, 255, 106, 0.6);
-    width: 80%;
-    height: 50px;
-
+    background: rgba(0, 255, 106, 0.4);
+    width: 90%;
+    height: 70px;
     /* position: absolute; */
     bottom: 20px;
     margin-top: 20px;
@@ -138,6 +183,6 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 16px;
-    color:#0329a7;
+    color: #fff;
     border-radius: 10px;
 }
