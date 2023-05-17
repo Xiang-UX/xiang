@@ -1,0 +1,107 @@
+ /* 下面是聊天窗口样式 */
+ .chat-container {
+     display: flex;
+     flex-direction: column;
+     justify-content: space-between;
+     position: fixed;
+     top: 50%;
+     left: 50%;
+     width: 70%;
+     height: 80%;
+     max-width: 600px;
+     max-height: 800px;
+     transform: translate(-50%, -50%);
+     border-radius: 8px;
+     overflow: hidden;
+     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+     background-color: #fff;
+     font-family: "Open Sans", sans-serif;
+ }
+
+ /* 标题栏样式 */
+ .header {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     text-align: center;
+     font-size: 20px;
+     font-weight: bold;
+     color: #fff;
+     background-color: #3f51b5;
+     height: 60px;
+ }
+
+ /* 对话框内的消息样式 */
+ .messages {
+     position: relative;
+     flex-grow: 1;
+     overflow-y: scroll;
+     padding: 20px;
+ }
+
+ /* 对话框内每条消息的样式 */
+ .message {
+     display: flex;
+     flex-direction: column;
+     margin-bottom: 20px;
+ }
+
+ .message .message-content {
+     padding: 10px 20px;
+     min-height: 40px;
+     max-width: 70%;
+     border-radius: 5px;
+     color: #fff;
+     font-size: 16px;
+     line-height: 24px;
+     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
+     word-wrap: break-word;
+ }
+
+ .message.from-user .message-content {
+     background-color: #3f51b5;
+     align-self: flex-end;
+ }
+
+ .message.from-bot .message-content {
+     background-color: #f44336;
+     align-self: flex-start;
+ }
+
+ /* 输入框和发送按钮样式 */
+ .footer {
+     display: flex;
+     align-items: center;
+     height: 60px;
+     background-color: #fafafa;
+     padding: 10px;
+ }
+
+ .footer input[type="text"] {
+     flex-grow: 1;
+     height: 40px;
+     margin-right: 10px;
+     padding: 5px 10px;
+     border: none;
+     border-radius: 20px;
+     background-color: #f2f2f2;
+     font-size: 16px;
+     outline: none;
+ }
+
+ .footer button[type="submit"] {
+     min-width: 80px;
+     height: 40px;
+     border: none;
+     border-radius: 20px;
+     background-color: #3f51b5;
+     color: #fff;
+     font-size: 16px;
+     font-weight: bold;
+     cursor: pointer;
+     outline: none;
+ }
+
+ .footer button[type="submit"]:hover {
+     background-color: #303f9f;
+ }
