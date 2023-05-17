@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>我的主页</title>
+    <!-- 插入图片 -->
+    <link rel="icon" type="image/x-icon" href="img/logo.png">
+    <link rel="stylesheet" href="css/caidan.css">
+    <style>
+        /* 设置弹窗样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 95%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        /* 弹窗图片样式 */
+        .modal-img {
+            display: block;
+            margin: auto;
+            max-width: 80%;
+            max-height: 70%;
+            padding: 20px;
+        }
+
+        /* 关闭按钮样式 */
+        .close {
+            position: absolute;
+            bottom: 1%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 28px;
+            font-weight: bold;
+            padding: 50px;
+        }
+
+        .close_img {
+            width: 50px;
+            height: 50px;
+
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+
+            text-decoration: none;
+        }
+
+        .yiyan_text {
+            text-align: right;
+        }
+
+        #yiyan_text,
+        .yiyan_text {
+            font-size: small;
+        }
+    </style>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+
+    <!-- 弹窗  -->
+    <div id="myModal" class="modal">
+        <span id="closeBtn" class="close"><img class="close_img" src="img/tuichu.png"></span>
+        <img class="modal-img" src="img/ysq.jpg">
+    </div>
+    <script>
+        window.onload = function () {
+            // 显示弹窗
+            document.getElementById("myModal").style.display = "block";
+        };
+        // 当用户点击关闭按钮时，隐藏弹窗
+        document.getElementById("closeBtn").addEventListener("click", function () {
+            document.getElementById("myModal").style.display = "none";
+        });
+    </script>
+    <div class="body">
+        <center>
+            <div class="biaoti">
+                <img class="biaoti_img" src="http://q2.qlogo.cn/headimg_dl?dst_uin=2860364991&spec=100">
+                - 巷的主页 -
+                <div class="yiyan_text">
+                    每日一言: <br>
+                    <span id="yiyan_text"></span>
+                </div>
+                <script src="js/yiyan.js"></script>
+            </div>
+        </center>
+        <div class="cebian">
+            <nav class="menu">
+                <ul class="menu-list">
+                    <li class="menu-item"><a href="page/tel.html">手机号查询</a></li>
+                    <li class="menu-item"><a href="page/wzry.html">王者低战力</a></li>
+                    <li class="menu-item"><a href="page/download.html">Adobe 下载</a></li>
+                    <li class="menu-item"><a href="page/chatgpt.html">ChatGPT</a></li>
+                    <li class="menu-item"><a href="#">静待添加</a></li>
+                    <li class="menu-item"><a href="#">静待添加</a></li>
+                    <li class="menu-item"><a href="#">静待添加</a></li>
+                    <li class="menu-item"><a href="#">静待添加</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="zhuti">
+            主体
+        </div>
+
+        <center>
+            <div class="dibu">
+                前端开发作者还在提升，无设计美感。
+                <br>
+                大家可加作者一起讨论 <a href="https://wpa.qq.com/msgrd?v=3&uin=2860364991&site=qq&menu=yes">QQ:2860364991</a>
+            </div>
+        </center>
+
+
+    </div>
+
+
+
+</body>
+
+</html>
