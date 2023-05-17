@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>巷的查王者低分战区</title>
+    <style>
+        #yy {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+            background-image: linear-gradient(to bottom right, #fff, #f2f2f2);
+            border-radius: 5px;
+            padding: 20px;
+        }
+
+        .container {
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 50px auto;
+            max-width: 600px;
+            border: none;
+            border-radius: 5px;
+            max-width: 600px;
+            margin: 50px auto;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .txet {
+            text-align: center;
+            color: #000;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: -15px;
+            margin-bottom: 2px;
+        }
+
+        select {
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 200px;
+        }
+
+        button {
+            background-color: #3F84FC;
+            color: #fff;
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            border: none;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 400px;
+        }
+
+        td:first-child {
+            font-weight: bold;
+            width: 120px;
+            text-align: left;
+            font-weight: bold;
+            width: 120px;
+        }
+
+        td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+
+        a {
+            color: #3F84FC;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="txet">
+            祝召唤师，排位连胜
+        </div>
+        <div id="yy">
+            <label for="hero">英雄名称:</label>
+            <select id="hero" name="hero">
+                <option value="">请选择英雄</option>
+            </select>
+            <label for="type">区服:</label>
+            <select id="type" name="type">
+                <option value="">请选择区服</option>
+                <option value="aqq">安卓QQ</option>
+                <option value="awx">安卓微信</option>
+                <option value="iqq">iOSQQ</option>
+                <option value="iwx">iOS微信</option>
+                <!-- 你需要添加其他类型参数选项 -->
+            </select>
+
+
+            <button onclick="getData()">查询</button>
+            <div>
+                <table align="center" border="1">
+                    <tr>
+                        <td>英雄名称</td>
+                        <td id='name'></td>
+                    </tr>
+                    <tr>
+                        <td>英雄uid</td>
+                        <td id='uid'></td>
+                    </tr>
+
+                    <tr>
+                        <td>区服</td>
+                        <td id='platform'></td>
+                    </tr>
+                    <tr>
+                        <td>最低铜标</td>
+                        <td id='areaPower'></td>
+                    </tr>
+                    <tr>
+                        <td>最低银标</td>
+                        <td id='cityPower'></td>
+                    </tr>
+                    <tr>
+                        <td>最低金标</td>
+                        <td id='provincePower'></td>
+                    </tr>
+                    <tr>
+                        <td>最低国标</td>
+                        <td id='guobiao'></td>
+                    </tr>
+                    <tr>
+                        <td>最后更新时间</td>
+                        <td id='time'></td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+            <div>
+                如有bug请联系巷
+                <a href="https://wpa.qq.com/msgrd?v=3&uin=2860364991&site=qq&menu=yes">2860364991</a>
+            </div>
+
+        </div>
+
+    </div>
+    <script>
+        function callApi(apiUrl, requestData) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", apiUrl, false);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=utf-8");
+            xhr.send(JSON.stringify(requestData));
+            if (xhr.status === 200) {
+                return JSON.parse(xhr.responseText);
+            }
+            return null;
+        }
+
+        // 用一个数组存储英雄名称选项
+        const heroes = ["廉颇", "小乔", "赵云", "墨子", "妲己",
+            "嬴政", "孙尚香", "鲁班七号", "庄周", "刘禅", "高渐离",
+            "阿轲", "钟无艳", "孙膑", "扁鹊", "白起", "芈月", "吕布",
+            "周瑜", "夏侯惇", "甄姬", "曹操", "典韦", "宫本武藏",
+            "李白", "马可波罗", "狄仁杰", "达摩", "项羽", "武则天",
+            "老夫子", "关羽", "貂蝉", "安琪拉", "程咬金", "露娜",
+            "姜子牙", "刘邦", "韩信", "王昭君", "兰陵王", "花木兰",
+            "张良", "不知火舞", "娜可露露", "橘右京", "亚瑟", "孙悟空",
+            "牛魔", "后羿", "刘备", "张飞", "李元芳", "虞姬", "钟馗",
+            "成吉思汗", "杨戬", "雅典娜", "蔡文姬", "太乙真人", "哪吒",
+            "诸葛亮", "黄忠", "大乔", "东皇太一", "干将莫邪", "鬼谷子",
+            "铠", "百里守约", "百里玄策", "苏烈", "梦奇", "女娲",
+            "明世隐", "公孙离", "杨玉环", "裴擒虎", "弈星", "狂铁",
+            "米莱狄", "元歌", "孙策", "司马懿", "盾山", "伽罗",
+            "沈梦溪", "李信", "上官婉儿", "嫦娥", "猪八戒", "盘古",
+            "瑶", "云中君", "曜", "马超", "西施", "鲁班大师",
+            "蒙犽", "镜", "蒙恬", "阿古朵", "夏洛特", "澜",
+            "司空震", "艾琳", "云缨", "金蝉", "暃", "桑启",
+            "戈娅", "海月", "赵怀真", "莱西奥", "姬小满" /* 其他英雄名称 */];
+
+        // 获取select元素
+        const heroSelect = document.getElementById("hero");
+
+        // 遍历数组，逐个创建option元素
+        for (let i = 0; i < heroes.length; i++) {
+            const option = document.createElement("option");
+            option.value = heroes[i];
+            option.text = heroes[i];
+            heroSelect.add(option);
+        }
+
+
+        function getData() {
+            const queryHero = document.getElementById("hero").value;
+            const queryType = document.getElementById("type").value;
+
+
+            const requestData = {};
+            const apiUrl = `http://ovoa.cc/api/zhanli.php?name=${queryHero}&type=${queryType}&mos=json`; // 使用输入的参数构建请求链接
+            const response = callApi(apiUrl, requestData);
+
+            try {
+                if (response.code == 200) {
+                    const data = response.data;
+                    //基础信息
+                    const uid = data.uid;
+                    const name = data.name;
+                    const alias = data.alias;
+                    const platform = data.platform;
+                    //铜标
+                    const area = data.area;
+                    const areaPower = data.areaPower;
+                    //市标
+                    const city = data.city;
+                    const cityPower = data.cityPower;
+                    //省标
+                    const province = data.province;
+                    const provincePower = data.provincePower;
+                    const guobiao = data.guobiao;
+                    //图片
+                    const photo = data.photo;
+                    const updatetime = data.updatetime;
+                    const msg = data.msg;
+                    console.log(response);
+                    console.log(name);
+                    document.getElementById('name').innerText = name;
+                    console.log(uid);
+                    document.getElementById('uid').innerText = uid;
+                    console.log(alias);
+                    console.log(platform);
+                    document.getElementById('platform').innerText = platform;
+                    console.log('铜标-铜标');
+                    console.log(area);
+                    console.log(areaPower);
+                    document.getElementById('areaPower').innerText = area + '；最低分：' + areaPower;
+                    console.log('市标-银标');
+                    console.log(city);
+                    console.log(cityPower);
+                    document.getElementById('cityPower').innerText = city + '；最低分：' + cityPower;
+                    console.log('省标-金标');
+                    console.log(province);
+                    console.log(provincePower);
+                    document.getElementById('provincePower').innerText = province + '；最低分' + provincePower;
+                    console.log('国标');
+                    console.log(guobiao);
+                    document.getElementById('guobiao').innerText = guobiao;
+                    console.log(photo);
+                    console.log(updatetime);
+                    document.getElementById('time').innerText = updatetime;
+
+                } else if (response.code == 400) {
+                    console.log(response.msg);
+                }
+            } catch (e) {
+                console.log("Error: ", e);
+            }
+            // ... 上文中的其他代码 ...
+        }
+
+    </script>
+</body>
+
+</html>
