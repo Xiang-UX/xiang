@@ -54,7 +54,7 @@
 
         // 获取机器人回复
         async function getAnswer(message) {
-            const response = await fetch(`http://hub.onmicrosoft.cn/chat?q=${encodeURIComponent(message)}`);
+            const response = await fetch(`https://hub.onmicrosoft.cn/chat?q=${encodeURIComponent(message)}`);
             if (response.ok) {
                 const data = await response.json();
                 return data.answer;
