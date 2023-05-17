@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>ChatGPT对话</title>
+    <style>
+        .chat {
+            margin: 20px auto;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .chat p {
+            margin: 0 0 10px;
+        }
+
+        .chat .user {
+            text-align: right;
+        }
+
+        .chat .bot {
+            text-align: left;
+        }
+
+        .chat input[type="text"] {
+            width: 100%;
+            height: 40px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            font-size: 16px;
+            line-height: 1.5;
+            margin-top: 20px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="chat">
+        <p class="bot">ChatGPT: 你好，我是ChatGPT。有什么可以帮你的吗？</p>
+        <p class="user">暂未开发完，接口未对接完</p>
+
+        <input type="text" id="input-box" onkeydown="handleKeyListener(event)">
+    </div>
+</body>
+<script>
+    const chatBox = document.querySelector('.chat');
+
+    // 回车键监听
+    function handleKeyListener(event) {
+        if (event.keyCode === 13) {
+            const input = document.getElementById('input-box');
+            const message = input.value;
+
+            // 用户发送消息
+            const userMessage = document.createElement('p');
+            userMessage.className = 'user';
+            userMessage.innerText = 'User: ' + message;
+            chatBox.appendChild(userMessage);
+
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "https://v1.apigpt.cn/?q=你好&apitype=sql");
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    console.log(response);
+                    console.log(response.ChatGPT_Answer);
+                    console.log(response.Questions);
+                } else {
+                    console.error("Request failed. Status:", xhr.status);
+                }
+            };
+            xhr.onerror = function () {
+                console.error("Network error.");
+            };
+            xhr.send();
+
+            // ChatGPT回复消息
+            const GPTMessage = document.createElement('p');
+            GPTMessage.className = 'bot';
+            GPTMessage.innerText = 'ChatGPT: ' + 'Hello World!';
+            chatBox.appendChild(GPTMessage);
+
+            // 滚动条自动滑动到最底部
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // 清空输入框
+            input.value = '';
+        }
+    }
+</script>
+
+</html>
