@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>巷的手机号查归属地</title>
+    <link rel="icon" type="image/x-icon" href="../img/logo.png">
+
+</head>
+
+<body>
+    <header class="header">
+
+        <div class="header-right">
+            <p class="disclaimer">网站仅供娱乐，测试版，有待优化</p>
+            <p class="disclaimer">如有不法行为，您的 IP 将移交相关部门</p>
+            <p class="ip-info">您的 IP: <span id="ip"></span></p>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="input-container">
+
+            <input type="text" id="phoneNumber" class="input-field" placeholder="请输入电话号码" />
+            <span class="input-highlight"></span>
+        </div>
+
+        <button class="query-btn" onclick="queryPhoneNumber()">查询</button>
+
+        <div class="result-container">
+            <div class="result-item">
+                <span>电话号码：</span>
+                <span id="phone"></span>
+            </div>
+
+            <div class="result-item">
+                <span>号码前缀：</span>
+                <span id="prefix"></span>
+            </div>
+
+            <div class="result-item">
+                <span>号码归属地：</span>
+                <span id="location"></span>
+            </div>
+
+            <div class="result-item">
+                <span>所属运营商：</span>
+                <span id="isp"></span>
+            </div>
+
+            <div class="result-item">
+                <span>邮编：</span>
+                <span id="areaCode"></span>
+            </div>
+
+            <div class="result-item">
+                <span>区号：</span>
+                <span id="descrip"></span>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p class="location-info">
+            您目前在：<span id="City"></span>
+        </p>
+        <p class="location-info">
+            当前 IP 所在经度: <span id="Longitude"></span>，纬度: <span id="Latitude"></span>
+        </p>
+        <p class="location-info">
+            运营商: <span id="isp_ip"></span>
+        </p>
+    </footer>
+
+    <script src="../js/ip.js"></script>
+    <script src="../js/tel.js"></script>
+
+</body>
+<style>
+    /* 全局样式 */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: "PingFang SC", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        letter-spacing: 0.1em;
+    }
+
+    /* 页面布局样式 */
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 64px;
+        padding: 0 16px;
+        background-color: #f8f8f8;
+        border-bottom: 1px solid #ddd;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.08);
+    }
+
+    .title {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .header-right {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .disclaimer {
+        font-size: 12px;
+    }
+
+    .ip-info {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 32px;
+    }
+
+    .input-container {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        margin-bottom: 32px;
+    }
+
+    .input-label {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .input-field {
+        display: block;
+        width: 100%;
+        height: 48px;
+        padding: 0 16px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        outline: none;
+    }
+
+    .input-field:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
+    }
+
+    .input-highlight {
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: #007bff;
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+    }
+
+    .input-field:focus+.input-highlight {
+        transform: scaleX(1);
+    }
+
+    .query-btn {
+        width: 100%;
+        max-width: 200px;
+        height: 48px;
+        margin-bottom: 32px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .query-btn:hover {
+        background-color: #0062cc;
+    }
+
+    .result-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 500px;
+    }
+
+    .result-item {
+        display: flex;
+        align-items: center;
+        margin: 8px;
+        font-size: 14px;
+    }
+
+    .result-item span:first-child {
+        font-weight: bold;
+        margin-right: 8px;
+    }
+
+    .footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 16px;
+        background-color: #f8f8f8;
+        border-top: 1px solid #ddd;
+    }
+
+    .location-info {
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 8px;
+    }
+
+    /* 响应式布局 */
+    @media (max-width: 480px) {
+
+        .input-container,
+        .query-btn,
+        .result-container {
+            max-width: 100%;
+        }
+    }
+</style>
+
+</html>
