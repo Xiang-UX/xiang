@@ -19,7 +19,7 @@ function getLocation(ip) {
                 const Latitude= data.Latitude;
                 const Longitude= data.Longitude;
                 const isp_ip= data.isp;
-                console.log(Longitude);
+                // console.log(Longitude);
                 
                 document.getElementById('City').innerText = `${Country} ${Province}省${City}市`;
                 document.getElementById('Latitude').innerText = Latitude;
