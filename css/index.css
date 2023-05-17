@@ -120,55 +120,16 @@ body {
     font-size: 24px;
     color: #fff;
 }
-.card {
-    width: 390px;
-    height: 500px;
-    padding: 5px;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#ca1eb3), color-stop(#FD2E24), color-stop(70%, #FFD701));
-    background-image: linear-gradient(#ca1eb3, #FD2E24, #FFD701 70%);
-}
-
-.card__content {
-    background-color: #212121cf;
-    -webkit-backdrop-filter: blur(50px);
-    backdrop-filter: blur(50px);
-    width: 100%;
-    height: 100%;
-    padding: 15px;
-}
-
-.card-details {
-    height: 100%;
-    gap: .5em;
-    display: grid;
-    place-content: center;
-}
-
-.text-body {
-    margin-top: -35px;
-    color: #ff8d79;
+.text-title{
     text-align: center;
+    font-size: 50px;
+    
 }
-
-.text-title {
-    margin-top: -125px;
-    color: #ff4d7d;
-    font-size: 1.75em;
-    font-weight: bold;
-    text-align: center;
+.text-body{
+text-align: center;
+font-size: 30px;
+font-family: cursive;
 }
-
-.sunsetsvg {
-    width: 313px;
-    margin-left: -51.9px;
-    margin-top: -165px;
-    fill: black;
-}
-
-#sun {
-    fill: url(#MyGradient);
-}
-
 
 
 /* 底部 4*/
