@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>巷的查Q绑</title>
+
+    <!-- 引入Bootstrap的CSS文件 -->
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"
+    /> -->
+
+    <!-- 引入Font Awesome的CSS文件 -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background-image: url(../img/bg.jpg);
+        background-size: cover; /* 或者使用 contain */
+        background-repeat: no-repeat;
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+      }
+
+      .container {
+        max-width: 100%;
+        max-height: 100%;
+        margin: 0px auto;
+        background-color: #12f7ff3c;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.242);
+      }
+
+      .header {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-size: 30px;
+      }
+
+      .card {
+        background-color: #23cbde1b;
+        padding: 20px;
+        border-radius: 9px;
+      }
+      label {
+        font-size: large;
+      }
+      .input {
+        width: 93%;
+        padding: 10px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border: 1px solid #f00b0b2d;
+        border-radius: 8px;
+      }
+      .loading {
+        text-align: center;
+      }
+      #loadingSpinner {
+        display: none;
+        width: 24px;
+        height: 24px;
+        margin: 0 auto;
+        border: 3px solid #ccc;
+        border-top-color: #333;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #0fe392;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #0fe392;
+      }
+
+      .result {
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #14ccba78;
+        border-radius: 8px;
+      }
+      /* 查询后结果 */
+      .text-danger {
+        text-align: center;
+        color: red;
+      }
+      .text-red {
+        font-size: 16px;
+        color: red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header">
+        <h5>巷的QQ绑定查询</h5>
+      </div>
+      <div class="card">
+        <div class="">
+          <label for="qqInput">请输入QQ号码：</label>
+          <input type="text" id="qqInput" class="input" />
+        </div>
+        <button id="searchBtn" class="">查询</button>
+        <div class="loading">
+          <i class="" id="loadingSpinner"></i>
+        </div>
+
+        <div id="result" class="result"></div>
+      </div>
+    </div>
+
+    <!-- 引入Bootstrap的JS文件 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // 获取查询按钮和结果容器元素
+      const searchBtn = document.getElementById("searchBtn");
+      const resultContainer = document.getElementById("result");
+      const qqInput = document.getElementById("qqInput");
+      const loadingSpinner = document.getElementById("loadingSpinner");
+
+      // 设置加载状态
+      let loading = false;
+
+      // 页面加载完成后隐藏加载圆圈
+      window.addEventListener("load", function () {
+        loadingSpinner.style.display = "none";
+      });
+
+      searchBtn.addEventListener("click", function () {
+        // 如果在加载中，直接返回
+        if (loading) {
+          return;
+        }
+
+        // 获取输入的QQ号码
+        const qq = qqInput.value;
+
+        if (qq === "") {
+          // 处理输入为空的情况
+          resultContainer.innerHTML =
+            '<p class="text-danger">输入不能为空</p><p class="text-red">本站由<b>巷</b>冠名开发，一切用于娱乐。严禁用于违法犯罪</p>';
+          return;
+        }
+
+        // 显示加载圆圈和禁用输入和按钮
+        loadingSpinner.style.display = "inline-block";
+        qqInput.disabled = true;
+        searchBtn.disabled = true;
+
+        // 设置加载状态为 true
+        loading = true;
+
+        // 发送API请求
+        const apiUrl = `https://zy.xywlapi.cc/qqapi?qq=${qq}`;
+        fetch(apiUrl)
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.status === 200) {
+              // 渲染查询结果
+              resultContainer.innerHTML = `
+                            <p><strong>Q Q号码:</strong> ${data.qq}</p>
+                            <p><strong>手机号码:</strong> ${data.phone}</p>
+                            <p><strong>手机归属:</strong> ${data.phonediqu}</p>
+                            <p class="text-red">本站由<b>巷</b>冠名开发，一切用于娱乐。严禁用于违法犯罪</p>
+                        `;
+            } else {
+              // 处理没有找到的情况
+              resultContainer.innerHTML = `<p class="text-danger">${data.message}</p ><p class="text-red">本站由<b>巷</b>冠名开发，一切用于娱乐。严禁用于违法犯罪</p>`;
+            }
+
+            // 隐藏加载圆圈和启用输入和按钮
+            loadingSpinner.style.display = "none";
+            qqInput.disabled = false;
+            searchBtn.disabled = false;
+            // 设置加载状态为 false
+            loading = false;
+          }, 1000)
+          .catch((error) => {
+            // 处理其他错误
+            resultContainer.innerHTML = `<p class="text-danger">查询出错: ${error}</p ><p class="text-red">本站由<b>巷</b>冠名开发，一切用于娱乐。严禁用于违法犯罪</p>`;
+
+            // 隐藏加载圆圈和启用输入和按钮
+            loadingSpinner.style.display = "none";
+            qqInput.disabled = false;
+            searchBtn.disabled = false;
+            // 设置加载状态为 false
+            loading = false;
+          }, 1000);
+      });
+    </script>
+  </body>
+</html>
