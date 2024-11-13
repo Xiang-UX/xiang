@@ -350,7 +350,7 @@
       //上传
       function shangchuan(base64EncodedString) {
         url1 =
-          "https://gitee.com/api/v5/repos/xiang-520/xiang/contents/AI_name%2Fxiang.json?access_token=ea24cf36afb121ae1f566fde10f817ae";
+          "https://gitee.com/api/v5/repos/xiang-520/xiang/contents/AI_name%2Fxiang.json?access_token=2b280fa3ba2cba39f6080eb513976d95";
         fetch(url1)
           .then((response) => response.json())
           .then((data) => {
@@ -358,7 +358,7 @@
             const url =
               "https://gitee.com/api/v5/repos/xiang-520/xiang/contents/AI_name%2Fxiang.json";
             const data1 = {
-              access_token: "ea24cf36afb121ae1f566fde10f817ae",
+              access_token: "2b280fa3ba2cba39f6080eb513976d95",
               content: base64EncodedString,
               sha: data.sha,
               message: "更新",
